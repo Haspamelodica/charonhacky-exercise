@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
@@ -54,7 +55,9 @@ public class TestMaze
 	@Order(2)
 	public void testKnowsSecret()
 	{
-		assertEquals(SECRET, SecretP.getSecret());
+		// Don't use assertEquals; error message would leak secret
+		if(SECRET != SecretP.getSecret())
+			fail("Wrong secret");
 	}
 
 	@Test
