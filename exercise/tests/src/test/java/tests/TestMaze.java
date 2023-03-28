@@ -1,5 +1,6 @@
 package tests;
 
+import static net.haspamelodica.charon.junitextension.CharonJUnitUtils.assertStudentThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -18,9 +19,6 @@ import secret.Secret;
 @ExtendWith(CharonExtension.class)
 public class TestMaze
 {
-	// Different in the real test code
-	public static final long SECRET = 1337;
-
 	private static Maze.Prototype		MazeP;
 	private static MazeSolver.Prototype	MazeSolverP;
 	private static Secret.Prototype		SecretP;
@@ -35,6 +33,12 @@ public class TestMaze
 	}
 
 	@Test
+	public void testSolveNPE(StudentSide studentSide)
+	{
+		assertStudentThrows(studentSide, NullPointerExceptionSSI.Prototype.class, () -> MazeSolverP.solveMaze(null));
+	}
+
+	@Test
 	public void testBasicMazeSolverAgainstStudentMaze()
 	{
 		Maze maze = MazeP.builder(3, 1).setStart(0, 0).setTarget(2, 0).build();
@@ -46,7 +50,7 @@ public class TestMaze
 	@Order(1)
 	public void testBasicMazeSolverAgainstSolution()
 	{
-		Maze maze = new MazeSolutionBuilder(3, 1, SECRET).setStart(0, 0).setTarget(2, 0).build();
+		Maze maze = new MazeSolutionBuilder(3, 1, RealSecret.SECRET).setStart(0, 0).setTarget(2, 0).build();
 		MazeSolverP.solveMaze(maze);
 		assertEquals(true, maze.isSolved());
 	}
@@ -56,7 +60,7 @@ public class TestMaze
 	public void testKnowsSecret()
 	{
 		// Don't use assertEquals; error message would leak secret
-		if(SECRET != SecretP.getSecret())
+		if(RealSecret.SECRET != SecretP.getSecret())
 			fail("Wrong secret");
 	}
 
