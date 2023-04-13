@@ -1,2 +1,4 @@
-/student/assignment
-/fifos
+/target/
+/.settings/
+/.classpath
+/.project
