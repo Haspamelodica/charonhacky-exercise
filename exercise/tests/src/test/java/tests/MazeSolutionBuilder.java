@@ -2,22 +2,18 @@ package tests;
 
 import java.util.Arrays;
 
-import maze.Maze;
-
 public class MazeSolutionBuilder
 {
 	private final boolean[][] maze;
-	private final long secret;
 
 	private int	startX, startY;
 	private int	targetX, targetY;
 
-	public MazeSolutionBuilder(int width, int height, long secret)
+	public MazeSolutionBuilder(int width, int height)
 	{
 		this.maze = new boolean[width + 2][height + 2];
 		for(int i = 1; i < width + 1; i ++)
 			Arrays.fill(maze[i], 1, height + 1, true);
-		this.secret = secret;
 	}
 
 	/** You may assume this method is only called once */
@@ -42,8 +38,8 @@ public class MazeSolutionBuilder
 		return this;
 	}
 
-	public Maze build()
+	public MazeSolution build()
 	{
-		return new MazeSolution(maze, targetX, targetY, startX, startY, secret);
+		return new MazeSolution(maze, targetX, targetY, startX, startY);
 	}
 }

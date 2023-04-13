@@ -9,18 +9,16 @@ public class MazeSolution implements Maze
 {
 	private final boolean[][]	maze;
 	private final int			targetX, targetY;
-	private final long			secret;
 
 	private int x, y;
 
-	public MazeSolution(boolean[][] maze, int targetX, int targetY, int startX, int startY, long secret)
+	public MazeSolution(boolean[][] maze, int targetX, int targetY, int startX, int startY)
 	{
 		this.maze = maze;
 		this.targetX = targetX;
 		this.targetY = targetY;
 		this.x = startX;
 		this.y = startY;
-		this.secret = secret;
 	}
 
 	@Override
@@ -65,9 +63,19 @@ public class MazeSolution implements Maze
 		return distanceToTargetX() == 0 && distanceToTargetY() == 0;
 	}
 
-	public long getSecret()
+	// Some other methods useful for extracting the secret, but without @SafeForCallByStudent.
+	// These exist to test whether it's possible to avoid the @SafeForCallByStudent check.
+	public int getWidth()
 	{
-		return secret;
+		return maze.length;
+	}
+	public int getHeight()
+	{
+		return maze[0].length;
+	}
+	public boolean isWall(int x, int y)
+	{
+		return !maze[x][y];
 	}
 
 	// If we don't mark toString as callable by student,
