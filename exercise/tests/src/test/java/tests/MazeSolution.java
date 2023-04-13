@@ -63,7 +63,7 @@ public class MazeSolution implements Maze
 		return distanceToTargetX() == 0 && distanceToTargetY() == 0;
 	}
 
-	// Some other methods useful for extracting the secret, but without @SafeForCallByStudent.
+	// Some other methods useful for extracting the flag, but without @SafeForCallByStudent.
 	// These exist to test whether it's possible to avoid the @SafeForCallByStudent check.
 	public int getWidth()
 	{

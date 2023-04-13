@@ -1,4 +1,4 @@
-package secret;
+package flag;
 
 import static net.haspamelodica.charon.annotations.StudentSideInstanceKind.Kind.CLASS;
 import static net.haspamelodica.charon.annotations.StudentSidePrototypeMethodKind.Kind.STATIC_METHOD;
@@ -10,11 +10,11 @@ import net.haspamelodica.charon.annotations.StudentSideInstanceKind;
 import net.haspamelodica.charon.annotations.StudentSidePrototypeMethodKind;
 
 @StudentSideInstanceKind(CLASS)
-public interface Secret extends StudentSideInstance
+public interface Flag extends StudentSideInstance
 {
-	public static interface Prototype extends StudentSidePrototype<Secret>
+	public static interface Prototype extends StudentSidePrototype<Flag>
 	{
 		@StudentSidePrototypeMethodKind(STATIC_METHOD)
-		public long extractSecretFromMaze(Maze maze);
+		public long extractFlagFromMaze(Maze maze);
 	}
 }
