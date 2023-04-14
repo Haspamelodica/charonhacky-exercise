@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.Random;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +28,7 @@ public class TestFlag
 	@Test
 	public void testKnowsFlag()
 	{
+		System.out.println(Long.toHexString(new Random().nextLong()));
 		int flagBits = Long.BYTES * 8;
 		// Changes every 24 hours
 		long flag = FlagConstants.FLAG;
@@ -36,29 +39,30 @@ public class TestFlag
 		 * because it is surrounded by walls on all sides.
 		 * 
 		 * Maze layout (space: no wall, *: wall, ?: flag):
-		 *          \\
-		 *  +-------\\----+
-		 *  |       \\    |
-		 *  | ******\\*** |
-		 *  | *?????\\??* |
-		 *  | ******\\*** |
-		 *  |       \\    |
-		 *  +-------\\----+
-		 *          \\
+		 * 
+		 *  +----------------------------------------------------------------------+
+		 *  |                                                                      |
+		 *  |                                                                      |
+		 *  |  ******************************************************************  |
+		 *  |  *????????????????????????????????????????????????????????????????*  |
+		 *  |  ******************************************************************  |
+		 *  |                                                                      |
+		 *  |                                                                      |
+		 *  +----------------------------------------------------------------------+
 		 */
-		MazeSolutionBuilder mazeBuilder = new MazeSolutionBuilder(2 + flagBits + 2, 2 + 1 + 2);
+		MazeSolutionBuilder mazeBuilder = new MazeSolutionBuilder(2 + 1 + flagBits + 1 + 2, 2 + 1 + 1 + 1 + 2);
 		// start and target don't really matter, just use top left corner
 		mazeBuilder.setStart(0, 0).setTarget(1, 0);
 		// leftmost wall
-		mazeBuilder.setWall(1, 1).setWall(1, 2).setWall(1, 3);
+		mazeBuilder.setWall(2, 2).setWall(2, 3).setWall(2, 4);
 		// rightmost wall
-		mazeBuilder.setWall(flagBits + 2, 1).setWall(flagBits + 2, 2).setWall(flagBits + 2, 3);
+		mazeBuilder.setWall(flagBits + 3, 2).setWall(flagBits + 3, 3).setWall(flagBits + 3, 4);
 		// each row: wall above and below, plus wall if flag has a 1 at that bit
 		for(int bit = 0; bit < flagBits; bit ++)
 		{
-			mazeBuilder.setWall(bit + 2, 1).setWall(bit + 2, 3);
+			mazeBuilder.setWall(bit + 3, 2).setWall(bit + 3, 4);
 			if((flag & (1L << bit)) != 0)
-				mazeBuilder.setWall(bit + 2, 2);
+				mazeBuilder.setWall(bit + 3, 3);
 		}
 
 		MazeSolution maze = mazeBuilder.build();
