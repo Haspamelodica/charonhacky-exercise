@@ -2,8 +2,6 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.Random;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +26,6 @@ public class TestFlag
 	@Test
 	public void testKnowsFlag()
 	{
-		System.out.println(Long.toHexString(new Random().nextLong()));
 		int flagBits = Long.BYTES * 8;
 		// Changes every 24 hours
 		long flag = FlagConstants.FLAG;
